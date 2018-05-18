@@ -1,7 +1,7 @@
-var util = require('../../../utils/util.js');
-var api = require('../../../config/api.js');
-var user = require('../../../services/user.js');
-var app = getApp();
+let util = require('../../../utils/util.js')
+let api = require('../../../config/api.js')
+let user = require('../../../services/user.js')
+let app = getApp()
 
 Page({
   data: {
@@ -16,18 +16,18 @@ Page({
   },
   onShow: function () {
 
-    let userInfo = wx.getStorageSync('userInfo');
-    let token = wx.getStorageSync('token');
+    let userInfo = wx.getStorageSync('userInfo')
+    let token = wx.getStorageSync('token')
 
     // 页面显示
     if (userInfo && token) {
-      app.globalData.userInfo = userInfo;
-      app.globalData.token = token;
+      app.globalData.userInfo = userInfo
+      app.globalData.token = token
     }
 
     this.setData({
       userInfo: app.globalData.userInfo,
-    });
+    })
 
   },
   onHide: function () {
@@ -39,14 +39,16 @@ Page({
   },
   goLogin(){
     user.loginByWeixin().then(res => {
+      console.log('点击登录返回的数据：')
+      console.log(res)
       this.setData({
         userInfo: res.data.userInfo
-      });
-      app.globalData.userInfo = res.data.userInfo;
-      app.globalData.token = res.data.token;
+      })
+      app.globalData.userInfo = res.data.userInfo
+      app.globalData.token = res.data.token
     }).catch((err) => {
       console.log(err)
-    });
+    })
   },
   exitLogin: function () {
     wx.showModal({
@@ -55,11 +57,11 @@ Page({
       content: '退出登录？',
       success: function (res) {
         if (res.confirm) {
-          wx.removeStorageSync('token');
-          wx.removeStorageSync('userInfo');
+          wx.removeStorageSync('token')
+          wx.removeStorageSync('userInfo')
           wx.switchTab({
             url: '/pages/index/index'
-          });
+          })
         }
       }
     })

@@ -1,13 +1,17 @@
 <view class="container">
+
+  <!-- <button open-type="getUserInfo">get user info</button> -->
+
   <view class="profile-info" bindtap="goLogin">
     <image class="avatar" src="{{userInfo.avatar}}"></image>
     <view class="info">
       <text class="name">{{userInfo.nickname}}</text>
-      <!-- <text class="level">{{userInfo.username}}</text> -->
+       <!--<text class="level">{{userInfo.username}}</text>-->
+       <button size="mini" open-type="getUserInfo">get user info</button>
     </view>
   </view>
 
-  <view class="user-menu">
+   <view class="user-menu">
     <view class="item">
       <navigator url="/pages/ucenter/order/order" class="a">
         <text class="icon order"></text>
@@ -74,7 +78,7 @@
         <text class="txt">意见反馈</text>
       </navigator>
     </view>
-  </view>
+  </view> 
 
-  <!--<view class="logout" bindtap="exitLogin">退出登录</view>-->
+  <view class="logout" bindtap="exitLogin">退出登录</view>
 </view>

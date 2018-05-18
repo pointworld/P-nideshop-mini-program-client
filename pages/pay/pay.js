@@ -1,6 +1,6 @@
-var app = getApp();
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
+let app = getApp()
+let util = require('../../utils/util.js')
+let api = require('../../config/api.js')
 
 Page({
   data: {
@@ -8,7 +8,9 @@ Page({
     actualPrice: 0.00
   },
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+    console.log('pages/pay/pay.js - options: ')
+    console.log(options)
+    // 页面初始化 options 为页面跳转所带来的参数
     this.setData({
       orderId: options.orderId,
       actualPrice: options.actualPrice
@@ -31,10 +33,10 @@ Page({
   },
   //向服务请求支付参数
   requestPayParam() {
-    let that = this;
+    let that = this
     util.request(api.PayPrepayId, { orderId: that.data.orderId, payType: 1 }).then(function (res) {
       if (res.errno === 0) {
-        let payParam = res.data;
+        let payParam = res.data
         wx.requestPayment({
           'timeStamp': payParam.timeStamp,
           'nonceStr': payParam.timeStamp,
@@ -53,9 +55,9 @@ Page({
           }
         })
       }
-    });
+    })
   },
   startPay() {
-    this.requestPayParam();
+    this.requestPayParam()
   }
 })

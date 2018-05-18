@@ -8,7 +8,7 @@
 
     	<view class="form-item">
     		<input class="password" value="{{password}}" password bindinput="bindPasswordInput" placeholder="密码"/>
-    		<image class="clear" id="clear-password" wx:if="{{ password.length > 0 }}" src="/static/images/clear_input.png" catchtap="clearInput"></image>
+    		<image wx:if="{{ password.length > 0 }}" id="clear-password" class="clear" src="/static/images/clear_input.png" catchtap="clearInput"></image>
     	</view>
 
 		<view class="form-item-code" wx-if="{{loginErrorCount >= 3}}">
