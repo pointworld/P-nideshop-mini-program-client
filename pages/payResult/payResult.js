@@ -1,8 +1,8 @@
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
-const pay = require('../../services/pay.js');
+let util = require('../../utils/util.js')
+let api = require('../../config/api.js')
+const pay = require('../../services/pay.js')
 
-var app = getApp();
+let app = getApp()
 Page({
   data: {
     status: false,
@@ -34,9 +34,9 @@ Page({
     pay.payOrder(parseInt(this.data.orderId)).then(res => {
       this.setData({
         status: true
-      });
+      })
     }).catch(res => {
-      util.showErrorToast('支付失败');
-    });
+      util.showErrorToast('支付失败')
+    })
   }
 })

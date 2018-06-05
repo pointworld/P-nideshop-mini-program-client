@@ -1,5 +1,5 @@
-var util = require('../../../utils/util.js');
-var api = require('../../../config/api.js');
+let util = require('../../../utils/util.js')
+let api = require('../../../config/api.js')
 
 Page({
   data: {
@@ -9,47 +9,53 @@ Page({
     handleOption: {}
   },
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+    // 页面初始化，options 为页面跳转所带来的参数
     this.setData({
       orderId: options.id
-    });
-    this.getOrderDetail();
+    })
+
+    this.getOrderDetail()
+
+    console.log('orderInfo: ')
+    console.log(this.data)
   },
   getOrderDetail() {
-    let that = this;
-    util.request(api.OrderDetail, {
-      orderId: that.data.orderId
-    }).then(function (res) {
-      if (res.errno === 0) {
-        console.log(res.data);
-        that.setData({
-          orderInfo: res.data.orderInfo,
-          orderGoods: res.data.orderGoods,
-          handleOption: res.data.handleOption
-        });
-        //that.payTimer();
-      }
-    });
+    let that = this
+    util
+      .request(api.OrderDetail, {
+        orderId: that.data.orderId
+      })
+      .then(function (res) {
+        if (res.errno === 0) {
+          console.log(res.data)
+          that.setData({
+            orderInfo: res.data.orderInfo,
+            orderGoods: res.data.orderGoods,
+            handleOption: res.data.handleOption
+          })
+          //that.payTimer()
+        }
+      })
   },
   payTimer() {
-    let that = this;
-    let orderInfo = that.data.orderInfo;
+    let that = this
+    let orderInfo = that.data.orderInfo
 
     setInterval(() => {
-      console.log(orderInfo);
-      orderInfo.add_time -= 1;
+      console.log(orderInfo)
+      orderInfo.add_time -= 1
       that.setData({
         orderInfo: orderInfo,
-      });
-    }, 1000);
+      })
+    }, 1000)
   },
   payOrder() {
-    let that = this;
+    let that = this
     util.request(api.PayPrepayId, {
       orderId: that.data.orderId || 15
     }).then(function (res) {
       if (res.errno === 0) {
-        const payParam = res.data;
+        const payParam = res.data
         wx.requestPayment({
           'timeStamp': payParam.timeStamp,
           'nonceStr': payParam.nonceStr,
@@ -62,10 +68,13 @@ Page({
           'fail': function (res) {
             console.log(res)
           }
-        });
+        })
       }
-    });
+    })
 
+  },
+  cancelOrder() {
+    console.log('cancel order')
   },
   onReady: function () {
     // 页面渲染完成

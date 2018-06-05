@@ -23,11 +23,42 @@ Page({
         }
       })
   },
-  payOrder(){
-    wx.redirectTo({
-      url: '/pages/pay/pay',
-    })
-  },
+  /* payOrder(){
+     wx.redirectTo({
+       url: '/pages/pay/pay',
+     })
+   },*/
+  /*payOrder(e) {
+    let that = this
+    console.log('that.data:')
+    console.log(that.data.orderList)
+    console.log(e)
+    console.log(that.data.orderList[e.currentTarget.dataset.orderIndex].id)
+    console.log(e.currentTarget.dataset.orderIndex)
+    util
+      .request(api.PayPrepayId, {
+        orderId: that.data.orderList[e.currentTarget.dataset.orderIndex].id
+      })
+      .then(function (res) {
+        if (res.errno === 0) {
+          const payParam = res.data
+          wx.requestPayment({
+            'timeStamp': payParam.timeStamp,
+            'nonceStr': payParam.nonceStr,
+            'package': payParam.package,
+            'signType': payParam.signType,
+            'paySign': payParam.paySign,
+            'success': function (res) {
+              console.log(res)
+            },
+            'fail': function (res) {
+              console.log(res)
+            }
+          })
+        }
+      })
+
+  },*/
   onReady:function(){
     // 页面渲染完成
   },

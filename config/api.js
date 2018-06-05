@@ -4,8 +4,8 @@
  *
  **/
 
-const ApiRootUrl = 'https://runfa.sciclean.cn/api/'
 // const ApiRootUrl = 'http://127.0.0.1:8360/api/'
+const ApiRootUrl = 'https://runfa.sciclean.cn/api/'
 
 module.exports = {
   IndexUrl: ApiRootUrl + 'index/index',                    //首页数据接口

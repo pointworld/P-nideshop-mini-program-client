@@ -1,7 +1,7 @@
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
+let util = require('../../utils/util.js')
+let api = require('../../config/api.js')
 
-var app = getApp()
+let app = getApp()
 Page({
   data: {
     keywrod: '',
@@ -10,8 +10,8 @@ Page({
     helpKeyword: [],
     historyKeyword: [],
     categoryFilter: false,
-    currentSortType: 'default',
-    currentSortOrder: '',
+    // currentSortType: 'default',
+    // currentSortOrder: '',
     filterCategory: [],
     defaultKeyword: {},
     hotKeyword: [],
@@ -29,24 +29,24 @@ Page({
     this.setData({
       keyword: '',
       searchStatus: false
-    });
+    })
   },
   onLoad: function () {
 
-    this.getSearchKeyword();
+    this.getSearchKeyword()
   },
 
   getSearchKeyword() {
-    let that = this;
+    let that = this
     util.request(api.SearchIndex).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           historyKeyword: res.data.historyKeywordList,
           defaultKeyword: res.data.defaultKeyword,
           hotKeyword: res.data.hotKeywordList
-        });
+        })
       }
-    });
+    })
   },
 
   inputChange: function (e) {
@@ -54,27 +54,27 @@ Page({
     this.setData({
       keyword: e.detail.value,
       searchStatus: false
-    });
-    this.getHelpKeyword();
+    })
+    this.getHelpKeyword()
   },
   getHelpKeyword: function () {
-    let that = this;
+    let that = this
     util.request(api.SearchHelper, { keyword: that.data.keyword }).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           helpKeyword: res.data
-        });
+        })
       }
-    });
+    })
   },
   inputFocus: function () {
     this.setData({
       searchStatus: false,
       goodsList: []
-    });
+    })
 
     if (this.data.keyword) {
-      this.getHelpKeyword();
+      this.getHelpKeyword()
     }
   },
   clearHistory: function () {
@@ -84,11 +84,11 @@ Page({
 
     util.request(api.SearchClearHistory, {}, 'POST')
       .then(function (res) {
-        console.log('清除成功');
-      });
+        console.log('清除成功')
+      })
   },
   getGoodsList: function () {
-    let that = this;
+    let that = this
     util.request(api.GoodsList, { keyword: that.data.keyword, page: that.data.page, size: that.data.size, sort: that.data.currentSortType, order: that.data.currentSortOrder, categoryId: that.data.categoryId }).then(function (res) {
       if (res.errno === 0) {
         that.setData({
@@ -98,16 +98,16 @@ Page({
           filterCategory: res.data.filterCategory,
           page: res.data.currentPage,
           size: res.data.numsPerPage
-        });
+        })
       }
 
       //重新获取关键词
-      that.getSearchKeyword();
-    });
+      that.getSearchKeyword()
+    })
   },
   onKeywordTap: function (event) {
 
-    this.getSearchResult(event.target.dataset.keyword);
+    this.getSearchResult(event.target.dataset.keyword)
 
   },
   getSearchResult(keyword) {
@@ -116,52 +116,52 @@ Page({
       page: 1,
       categoryId: 0,
       goodsList: []
-    });
+    })
 
-    this.getGoodsList();
+    this.getGoodsList()
   },
   openSortFilter: function (event) {
-    let currentId = event.currentTarget.id;
+    let currentId = event.currentTarget.id
     switch (currentId) {
       case 'categoryFilter':
         this.setData({
           'categoryFilter': !this.data.categoryFilter,
           'currentSortOrder': 'asc'
-        });
-        break;
+        })
+        break
       case 'priceSort':
-        let tmpSortOrder = 'asc';
+        let tmpSortOrder = 'asc'
         if (this.data.currentSortOrder == 'asc') {
-          tmpSortOrder = 'desc';
+          tmpSortOrder = 'desc'
         }
         this.setData({
           'currentSortType': 'price',
           'currentSortOrder': tmpSortOrder,
           'categoryFilter': false
-        });
+        })
 
-        this.getGoodsList();
-        break;
+        this.getGoodsList()
+        break
       default:
         //综合排序
         this.setData({
           'currentSortType': 'default',
           'currentSortOrder': 'desc',
           'categoryFilter': false
-        });
-        this.getGoodsList();
+        })
+        this.getGoodsList()
     }
   },
   selectCategory: function (event) {
-    let currentIndex = event.target.dataset.categoryIndex;
-    let filterCategory = this.data.filterCategory;
-    let currentCategory = null;
+    let currentIndex = event.target.dataset.categoryIndex
+    let filterCategory = this.data.filterCategory
+    let currentCategory = null
     for (let key in filterCategory) {
-      if (key == currentIndex) {
-        filterCategory[key].selected = true;
-        currentCategory = filterCategory[key];
+      if (key === currentIndex) {
+        filterCategory[key].selected = true
+        currentCategory = filterCategory[key]
       } else {
-        filterCategory[key].selected = false;
+        filterCategory[key].selected = false
       }
     }
     this.setData({
@@ -170,10 +170,10 @@ Page({
       categoryId: currentCategory.id,
       page: 1,
       goodsList: []
-    });
-    this.getGoodsList();
+    })
+    this.getGoodsList()
   },
   onKeywordConfirm(event) {
-    this.getSearchResult(event.detail.value);
+    this.getSearchResult(event.detail.value)
   }
 })

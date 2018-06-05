@@ -1,6 +1,6 @@
-const util = require('../../utils/util.js');
-const api = require('../../config/api.js');
-const user = require('../../services/user.js');
+const util = require('../../utils/util.js')
+const api = require('../../config/api.js')
+const user = require('../../services/user.js')
 
 //获取应用实例
 const app = getApp()
@@ -16,14 +16,14 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: 'NideShop',
-      desc: '仿网易严选微信小程序商城',
+      title: 'PointShop',
+      desc: '一点商城',
       path: '/pages/index/index'
     }
   },
 
   getIndexData: function () {
-    let that = this;
+    let that = this
     util.request(api.IndexUrl).then(function (res) {
       if (res.errno === 0) {
         that.setData({
@@ -34,12 +34,12 @@ Page({
           floorGoods: res.data.categoryList,
           banner: res.data.banner,
           channel: res.data.channel
-        });
+        })
       }
-    });
+    })
   },
   onLoad: function (options) {
-    this.getIndexData();
+    this.getIndexData()
   },
   onReady: function () {
     // 页面渲染完成

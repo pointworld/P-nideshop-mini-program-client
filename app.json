@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/ucenter/index/index",
     "pages/index/index",
     "pages/topic/topic",
     "pages/catalog/catalog",
     "pages/cart/cart",
+    "pages/ucenter/index/index",
 
     "pages/goods/goods",
     "pages/newGoods/newGoods",
@@ -45,7 +45,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "point",
+    "navigationBarTitleText": "一点商城",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },

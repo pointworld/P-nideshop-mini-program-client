@@ -1,5 +1,5 @@
 <view class="container">
-  <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+  <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000" circular="true">
     <swiper-item wx:for="{{gallery}}" wx:key="{{item.id}}">
       <image src="{{item.img_url}}" background-size="cover"></image>
     </swiper-item>
